@@ -65,6 +65,7 @@ public class NewForgeProjectWizard extends BaseNewProjectWizard {
 	@Override
 	public boolean performFinish() {
 		try {
+			String projectName = mainPage.getProjectName();
 			String modid = optionsPage.getModId();
 			String displayName = optionsPage.getDisplayName();
 			String mdkPath = optionsPage.getMdkPath();
@@ -72,6 +73,7 @@ public class NewForgeProjectWizard extends BaseNewProjectWizard {
 			String forgeVersion = ForgeUtil.getVersionFromMDK(mdkPath);
 
 			StringBuilder sb = new StringBuilder();
+			sb.append("Project Name: \t" + projectName + "\n");
 			sb.append("Mod ID: \t\t" + modid + "\n");
 			sb.append("Display Name: \t" + displayName + "\n");
 			sb.append("MDK Path: \t" + mdkPath + "\n");
@@ -163,7 +165,7 @@ public class NewForgeProjectWizard extends BaseNewProjectWizard {
 					if (result != 0) {
 						throw new RuntimeException("Error running gradlew commands.");
 					}
-					
+
 					monitor.worked(100);
 
 					monitor.setTaskName("Applying Eclispe Plugin: Starting Daemon");
@@ -186,11 +188,10 @@ public class NewForgeProjectWizard extends BaseNewProjectWizard {
 					if (result != 0) {
 						throw new RuntimeException("Error running gradlew commands.");
 					}
-					
+
 					monitor.worked(100);
 
 				} catch (Exception e) {
-					e.printStackTrace();
 					throw new RuntimeException("Error running gradlew commands.");
 				}
 
